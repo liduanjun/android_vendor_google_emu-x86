@@ -111,7 +111,7 @@ EOF
 # The 32-bit version of Houdini cannot emulate aarch64 (afaik),
 # so there is little point in pretending to be an ARMv8 processor...
 # Continue using the ARMv7 version for now.
-mv "$TARGET_DIR/houdini/lib/arm/cpuinfo.pure32" "$TARGET_DIR/houdini/lib/arm/cpuinfo"
+#~ mv "$TARGET_DIR/houdini/lib/arm/cpuinfo.pure32" "$TARGET_DIR/houdini/lib/arm/cpuinfo"
 touch -hr vendor/lib/arm "$TARGET_DIR/houdini/lib/arm"
 
 # Normalize file modification times
