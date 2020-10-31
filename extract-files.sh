@@ -4,12 +4,12 @@ set -euo pipefail
 # Use consistent umask for reproducible builds
 umask 022
 
-CHROMEOS_VERSION="13421.73.0_atlas"
+CHROMEOS_VERSION="13421.73.0_nocturne"
 CHROMEOS_RECOVERY="chromeos_${CHROMEOS_VERSION}_recovery_stable-channel_mp"
 
 CHROMEOS_FILENAME="$CHROMEOS_RECOVERY.bin.zip"
 CHROMEOS_URL="https://dl.google.com/dl/edgedl/chromeos/recovery/$CHROMEOS_FILENAME"
-CHROMEOS_SHA1="5b3fd43c64563d1a9a331ca0808917ae1362229e $CHROMEOS_FILENAME"
+CHROMEOS_SHA1="612eaade9451d3d89cb574984795db40415d9fb8 $CHROMEOS_FILENAME"
 
 CHROMEOS_FILE="$PWD/$CHROMEOS_FILENAME"
 TARGET_DIR="$PWD/proprietary"
