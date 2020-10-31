@@ -4,12 +4,12 @@ set -euo pipefail
 # Use consistent umask for reproducible builds
 umask 022
 
-CHROMEOS_VERSION="13421.73.0_nocturne"
-CHROMEOS_RECOVERY="chromeos_${CHROMEOS_VERSION}_recovery_stable-channel_mp"
+CHROMEOS_VERSION="13310.93.0_drallion"
+CHROMEOS_RECOVERY="chromeos_${CHROMEOS_VERSION}_recovery_stable-channel_mp-v2"
 
 CHROMEOS_FILENAME="$CHROMEOS_RECOVERY.bin.zip"
 CHROMEOS_URL="https://dl.google.com/dl/edgedl/chromeos/recovery/$CHROMEOS_FILENAME"
-CHROMEOS_SHA1="612eaade9451d3d89cb574984795db40415d9fb8 $CHROMEOS_FILENAME"
+CHROMEOS_SHA1="10ca0e6846d26a33344b5ab4b4fd5887d30edf01 $CHROMEOS_FILENAME"
 
 CHROMEOS_FILE="$PWD/$CHROMEOS_FILENAME"
 TARGET_DIR="$PWD/proprietary"
@@ -88,11 +88,8 @@ on early-init
 on property:ro.enable.native.bridge.exec=1
     copy /system/etc/binfmt_misc/arm_exe /proc/sys/fs/binfmt_misc/register
     copy /system/etc/binfmt_misc/arm_dyn /proc/sys/fs/binfmt_misc/register
-
-on property:ro.enable.native.bridge.exec64=1
     copy /system/etc/binfmt_misc/arm64_exe /proc/sys/fs/binfmt_misc/register
     copy /system/etc/binfmt_misc/arm64_dyn /proc/sys/fs/binfmt_misc/register
-
 EOF
 touch -hr vendor/etc/init "$TARGET_DIR/houdini/etc/init"{/houdini.rc,}
 
