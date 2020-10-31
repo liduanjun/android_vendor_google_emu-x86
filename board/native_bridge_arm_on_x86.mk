@@ -8,6 +8,7 @@ endif
 # If native bridge is bundled with the system, indicate support for ARM ABIs
 ifeq ($(WITH_NATIVE_BRIDGE), true)
     NATIVE_BRIDGE_ABI_LIST_32_BIT := armeabi-v7a armeabi
+    NATIVE_BRIDGE_ABI_LIST_64_BIT := arm64-v8a
 endif
 
 # Add ARM to supported ABIs
