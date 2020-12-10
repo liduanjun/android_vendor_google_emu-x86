@@ -8,3 +8,5 @@ ifneq ($(WITH_NATIVE_BRIDGE), true)
     # https://github.com/LineageOS/android_build/commit/94282042cac8dc66e9935c8d7455bd323b0b6716
     PRODUCT_BUILD_PROP_OVERRIDES += TARGET_CPU_ABI2=
 endif
+
+#~ TARGET_CPU_ABI_LIST := x86_64 x86 arm64-v8a armeabi-v7a armeabi

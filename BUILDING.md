@@ -1,8 +1,8 @@
-## Building ChromeOS Addons
+## Extracting from Google Emulator images
 This repository contains build scripts for the following two flashable ZIPs:
 
   - Widevine (DRM used in some streaming apps)
-  - Houdini (used to run ARM apps on x86)
+  - libndk_translation (used to run ARM apps on x86)
 
 There are no pre-built ZIP packages provided by this project.
 However, building the ZIP should always produce the same file.
