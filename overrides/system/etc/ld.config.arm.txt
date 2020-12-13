@@ -1,0 +1,44 @@
+# Copyright (C) 2017 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+dir.system=/system
+dir.system=/data
+
+[system]
+namespace.default.visible = true
+namespace.default.isolated = false
+namespace.default.search.paths  = /system/${LIB}/arm/bootstrap
+namespace.default.search.paths += /system/${LIB}/arm
+namespace.default.permitted.paths = /system/${LIB}/arm
+
+namespace.default.asan.search.paths = /data/asan/system/${LIB}/arm:/system/${LIB}/arm
+namespace.default.asan.permitted.paths = /data/asan/system/${LIB}/arm:/system/${LIB}/arm
+
+additional.namespaces = neuralnetworks
+
+namespace.default.links = neuralnetworks
+namespace.default.link.neuralnetworks.shared_libs = libneuralnetworks.so
+
+###############################################################################
+# "neuralnetworks" APEX namespace (currently fake)
+# TODO(b/142108150): turn it into a proper APEX.
+#
+# This namespace is for libraries within the NNAPI APEX.
+###############################################################################
+namespace.neuralnetworks.isolated = true
+namespace.neuralnetworks.visible = true
+namespace.neuralnetworks.permitted.paths = /system/${LIB}/arm
+
+namespace.neuralnetworks.search.paths = /system/${LIB}/arm
+namespace.neuralnetworks.asan.search.paths = /system/${LIB}/arm
+namespace.neuralnetworks.links = default
+namespace.neuralnetworks.link.default.shared_libs  = linux-vdso.so.1
+namespace.neuralnetworks.link.default.shared_libs += libcutils.so
+namespace.neuralnetworks.link.default.shared_libs += liblog.so
+namespace.neuralnetworks.link.default.shared_libs += libnativewindow.so
+namespace.neuralnetworks.link.default.shared_libs += libutils.so
+namespace.neuralnetworks.link.default.shared_libs += libc++.so
+namespace.neuralnetworks.link.default.shared_libs += libc.so
+namespace.neuralnetworks.link.default.shared_libs += libm.so
+namespace.neuralnetworks.link.default.shared_libs += libdl.so
