@@ -1,3 +1,9 @@
 *.zip
 proprietary
 /temp
+/g_product/**/*.apk
+/g_product/**/*.vdex
+/g_product/**/*.odex
+/g_system_ext/**/*.apk
+/g_product/**/*.vdex
+/g_product/**/*.odex
