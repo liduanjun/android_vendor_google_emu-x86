@@ -6,9 +6,11 @@ dl_vendor_path="$rompath"
 umask 022
 if [ "$1" = "x86_64" ];then
 	ASEMU_VERSION="x86_64"
+	ASEMU_SHA1SUM="ef4661e49abeb64c173636012526e41ff6f39dc1"
 
 elif [ "$1" = "x86" ];then
 	ASEMU_VERSION="x86"
+	ASEMU_SHA1SUM="13c100b62983d64db53cef3d70fea789d89f3232"
 fi
 
 temp_dir="$dl_vendor_path"
@@ -22,7 +24,7 @@ ASEMU_URL="https://dl.google.com/android/repository/sys-img/google_apis_playstor
 
 ASEMU_FILE_PATH="$temp_dir/$ASEMU_FILENAME"
 echo $ASEMU_FILE
-ASEMU_SHA1="ef4661e49abeb64c173636012526e41ff6f39dc1 $ASEMU_FILE_PATH"
+ASEMU_SHA1="$ASEMU_SHA1SUM $ASEMU_FILE_PATH"
 TARGET_DIR="$dl_vendor_path/proprietary"
 echo $TARGET_DIR
 
@@ -54,8 +56,8 @@ fi
 #~ cd $dl_vendor_path/temp
 
 # Extract .zip
-echo "7z x $ASEMU_FILE_PATH -o$temp_dir/extracted"
-7z x $ASEMU_FILE_PATH -o$temp_dir/extracted
+#echo "7z x $ASEMU_FILE_PATH -o$temp_dir/extracted"
+#7z x $ASEMU_FILE_PATH -o$temp_dir/extracted
 # TODO - Use p7zip to open file or use lpunpack 
 # TODO - Extract first system.img
 

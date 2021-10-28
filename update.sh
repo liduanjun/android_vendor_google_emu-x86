@@ -77,7 +77,7 @@ yes | unzip "${ARCH}-*-linux.zip"
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Extracting system.img"${reset}
 echo -e ${reset}""${reset}
-yes | 7z e x86_64/system.img
+yes | 7z e ${ARCH}/system.img
 
 binwalk -e \
     --depth 1 \
@@ -95,7 +95,7 @@ cd extracted
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Extracting super.img"${reset}
 echo -e ${reset}""${reset}
-yes | 7z x ../_super.img.extracted/100000.ext
+yes | 7z x ../_super.img.extracted/100000.ext*
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Finding needed files in system.img"${reset}
 echo -e ${reset}""${reset}
@@ -117,7 +117,7 @@ cd vendor
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Extracting vendor.img"${reset}
 echo -e ${reset}""${reset}
-yes | 7z x ../x86_64/vendor.img
+yes | 7z x ../../${ARCH}/vendor.img
 cd ..
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Finding needed files in vendor.img"${reset}
@@ -156,7 +156,9 @@ echo -e ${ltyellow}"making widevine folder"${reset}
 echo -e ${reset}""${reset}
 mkdir -p widevine
 mv vendor widevine/vendor
-cp widevine/vendor/lib64/libwvhidl.so widevine/vendor/lib/
+if [ "${ARCH}" = "x86_64" ]; then
+    cp widevine/vendor/lib64/libwvhidl.so widevine/vendor/lib/
+fi
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"Creating Android.bp for widevine"${reset}
 echo -e ${reset}""${reset}
@@ -166,7 +168,7 @@ mv ${TARGET_DIR}/widevine/Android.bp.template ${TARGET_DIR}/widevine/Android.bp
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"Cleaning up a bit more"${reset}
 echo -e ${reset}""${reset}
-rm -rf $vendor_path/temp/*.img $vendor_path/temp/_super.img.extracted $vendor_path/temp/extracted $vendor_path/temp/x86_64 
+rm -rf $vendor_path/temp/*.img $vendor_path/temp/_super.img.extracted $vendor_path/temp/extracted $vendor_path/temp/${ARCH}
 cd $rompath
 echo -e ${reset}""${reset}
 echo -e ${ltgreen}"All Done! Files can be found in ${TARGET_DIR}"${reset}
