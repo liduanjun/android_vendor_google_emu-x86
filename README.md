@@ -30,51 +30,24 @@ Therefore its integrity can be verified using the checksums available in the
 ### Requirements
 - Linux (e.g. Debian, Ubuntu, ...)
 - curl or wget, rsync, zip, unzip
-  - Debian/Ubuntu: `sudo apt install curl rsync zip unzip` (usually installed by default)
+  - Debian/Ubuntu: `sudo apt install curl rsync zip unzip binwalk` (usually installed by default)
+    Also need to install `7z` from [7-zip.org](https://www.7-zip.org/download.html)
 
 ### Building
 1. Download the **Source code** as `.tar.gz` from the
    [release section](https://gitlab.com/android-generic/android_vendor_google_emu-x86)
    and unpack it.
 
-2. Open a terminal and run:
-   ```
-   $ ./download-files.sh x86_64
-   ```
-   or, for 32bit
-   ```
-   $ ./download-files.sh x86
-   ```
+2. Open a terminal and cd into your project folder, then run:
 
-   Then follow these instructions.
-   This will download a emu image and extract the needed files from it.
+   `git clone https://gitlab.com/android-generic/android_vendor_google_emu-x86 vendor/google/emu-x86`
    
-3. From there, you need to build the lpunpack util and use that to extract the system.img
-   '''
-   . build/envsetup.sh
-	lunch android_${ASEMU_VERSION}-userdebug
-	mm lpunpack
-	mkdir vendor/google/emu-x86/temp/extracted/x86_64/system
-	out/host/linux-x86/bin/lpunpack vendor/google/emu-x86/temp/extracted/x86_64/system.img vendor/google/emu-x86/temp/extracted/x86_64/system
-	'''
-
-4. Then you can mount the images from GUI, or from terminal
-	'''
-	gnome-disk-image-mounter vendor/google/emu-x86/temp/extracted/x86_64/system/system.img
-	gnome-disk-image-mounter vendor/google/emu-x86/temp/extracted/x86_64/system/product.img
-	gnome-disk-image-mounter vendor/google/emu-x86/temp/extracted/x86_64/system/system_ext.img
-	gnome-disk-image-mounter vendor/google/emu-x86/temp/extracted/x86_64/system/vendor.img
-	'''
-
-5. Now we can pull the files we need from the image with a script
-	For 64bit:
-	'''
-	./ext_emu_x86_64.sh
-	'''
-	or for 32bit: (currently not supported)
-	'''
-	./ext_emu_x86.sh
-	'''
+3. Then we need to run the update script
+   
+   `$ . vendor/google/emu-x86/update.sh x86_64`
+   
+   This will download the NDK Emulator image and extract the needed files from it for libndk & widevine.
+   
 
 ### Make files
 `board` and `target` contain make files that can be used to bundle the
@@ -87,28 +60,20 @@ proprietary files in an Android build.
 
     - `BoardConfig.mk`: Always required.
 
-        ```make
-        -include vendor/google/emu-x86/board/native_bridge_arm_on_x86.mk
-        ```
+        `-include vendor/google/emu-x86/board/native_bridge_arm_on_x86.mk`
 
     - `device.mk`: Do not advertise support for ARM ABI by default (for use when
         libndk_translation is not bundled):
 
-        ```make
-        $(call inherit-product-if-exists, vendor/google/emu-x86/target/native_bridge_arm_on_x86.mk)
-        ```
+        `$(call inherit-product-if-exists, vendor/google/emu-x86/target/native_bridge_arm_on_x86.mk)`
 
         Optional: Bundle libndk_translation directly with the Android build:
 
-        ```make
-        $(call inherit-product-if-exists, vendor/google/emu-x86/target/libndk_translation.mk)
-        ```
+        `$(call inherit-product-if-exists, vendor/google/emu-x86/target/libndk_translation.mk)`
 
   - **Widevine:** `device.mk`: Bundle Widevine directly with the Android build.
 
-    ```make
-    $(call inherit-product-if-exists, vendor/google/emu-x86/target/widevine.mk)
-    ```
+    `$(call inherit-product-if-exists, vendor/google/emu-x86/target/widevine.mk)`
 
 ## License
 Please see [`LICENSE`](/LICENSE).

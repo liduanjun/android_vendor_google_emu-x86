@@ -1,5 +1,8 @@
 # Bundle Widevine DRM
-WIDEVINE_PATH := $(dir $(LOCAL_PATH))proprietary/widevine
+WIDEVINE_PATH := $(dir $(LOCAL_PATH))proprietary/widevine/vendor
 
-PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(dir $(LOCAL_PATH))proprietary/widevine,$(TARGET_COPY_OUT_VENDOR))
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/google/emu-x86
+
+PRODUCT_PACKAGES += android.hardware.drm@1.3-service.widevine \
+	libwvhidl
