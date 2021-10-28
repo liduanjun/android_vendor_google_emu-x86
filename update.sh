@@ -122,7 +122,7 @@ cd ..
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Finding needed files in vendor.img"${reset}
 echo -e ${reset}""${reset}
-find vendor \( -name 'android.hardware.drm@1.3-service.widevine*' -o -name '*libwvdrmengine*' -o -name 'libwvhidl*' \) | tar -cf widevine.tar -T -
+find vendor \( -name 'android.hardware.drm@1.3-service.widevine*' -o -name '*libwvdrmengine*' -o -name 'libwvhidl*' -o -name '*libwv*' \) | tar -cf widevine.tar -T -
 
 stat widevine.tar
 
@@ -156,6 +156,7 @@ echo -e ${ltyellow}"making widevine folder"${reset}
 echo -e ${reset}""${reset}
 mkdir -p widevine
 mv vendor widevine/vendor
+cp widevine/vendor/lib64/libwvhidl.so widevine/vendor/lib/
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"Creating Android.bp for widevine"${reset}
 echo -e ${reset}""${reset}
