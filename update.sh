@@ -4,6 +4,7 @@
 # Repo:         https://github.com/sickcodes/Droid-NDK-Extractor
 # Copyright:    sickcodes (C) 2021
 # License:      GPLv3+
+#~ set -euo pipefail
 
 #setup colors
 red=`tput setaf 1`
@@ -28,6 +29,7 @@ conflict=""
 conflict_list=""
 goodpatch=""
 project_revision=""
+wv_api=""
 
 echo -e ${reset}""${reset}
 echo -e ${teal}"This script requires the following dependencies: binwalk, curl/wget, 7z"${reset}
@@ -39,6 +41,18 @@ TARGET_DIR="$rompath/vendor/google/emu-x86/proprietary"
 
 ARCH="${1}"
 ARCH="${ARCH:="x86_64"}"
+
+if [ -f $rompath/build/make/core/version_defaults.mk ]; then
+	if grep -q "PLATFORM_SDK_VERSION := 29" $rompath/build/make/core/version_defaults.mk; then
+        wv_api="29"
+    fi
+    if grep -q "PLATFORM_SDK_VERSION := 30" $rompath/build/make/core/version_defaults.mk; then
+        wv_api="30"
+    fi
+    if grep -q "PLATFORM_SDK_VERSION := 31" $rompath/build/make/core/version_defaults.mk; then
+        wv_api="31"
+    fi
+fi
 
 #~ temp_dir=$(mktemp -d)
 temp_dir="$vendor_path/temp"
@@ -67,7 +81,7 @@ cd $vendor_path/temp
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Chercking Downloaded Files"${reset}
 echo -e ${reset}""${reset}
-yes | ./../download-files.sh "${ARCH}"
+yes | ./../download-files.sh "${ARCH}" || return $?
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Extracting images"${reset}
 echo -e ${reset}""${reset}
@@ -122,7 +136,7 @@ cd ..
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Finding needed files in vendor.img"${reset}
 echo -e ${reset}""${reset}
-find vendor \( -name 'android.hardware.drm@1.3-service.widevine*' -o -name '*libwvdrmengine*' -o -name 'libwvhidl*' -o -name '*libwv*' \) | tar -cf widevine.tar -T -
+find vendor \( -name 'android.hardware.drm@1.3-service.widevine*' -o -name '*libwvdrmengine*' -o -name 'libwvhidl*' -o -name '*libwv*' -o -name '*widevine*' \) | tar -cf widevine.tar -T -
 
 stat widevine.tar
 
@@ -157,13 +171,16 @@ echo -e ${reset}""${reset}
 mkdir -p widevine
 mv vendor widevine/vendor
 if [ "${ARCH}" = "x86_64" ]; then
+	mkdir widevine/vendor/lib
+	mkdir widevine/vendor/lib/mediadrm
     cp widevine/vendor/lib64/libwvhidl.so widevine/vendor/lib/
+    cp widevine/vendor/lib64/mediadrm/libwvdrmengine.so widevine/vendor/lib/mediadrm/
 fi
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"Creating Android.bp for widevine"${reset}
 echo -e ${reset}""${reset}
 cp -r $vendor_path/templates/widevine/ ${TARGET_DIR}/
-mv ${TARGET_DIR}/widevine/Android.bp.template ${TARGET_DIR}/widevine/Android.bp
+mv ${TARGET_DIR}/widevine/Android.bp.$wv_api.template ${TARGET_DIR}/widevine/Android.bp
 
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"Cleaning up a bit more"${reset}
