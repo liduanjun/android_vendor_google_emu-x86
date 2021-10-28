@@ -71,7 +71,7 @@ yes | ./../download-files.sh "${ARCH}"
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Extracting images"${reset}
 echo -e ${reset}""${reset}
-yes | unzip "${ARCH}-*-linux.zip"
+yes | 7z x "${ARCH}-*.zip"
 
 
 echo -e ${reset}""${reset}
@@ -100,7 +100,7 @@ echo -e ${reset}""${reset}
 echo -e ${ltblue}"Finding needed files in system.img"${reset}
 echo -e ${reset}""${reset}
 #~ find system \( -name 'libndk_translation*' -o -name '*arm*' -o -name 'ndk_translation*' \) | tar -cf native-bridge.tar -T -
-find system \( -name 'libndk_translation*' -o -name '*arm*' -o -name 'ndk_translation*' \) | tar -cf native-bridge.tar -T -
+find system \( -name 'libndk_translation*' -o -name '*arm*' -o -name 'ndk_translation*' \) | grep -v libalarm_jni.so | tar -cf native-bridge.tar -T -
 
 stat native-bridge.tar
 

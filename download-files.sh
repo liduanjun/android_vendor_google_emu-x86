@@ -5,22 +5,21 @@ dl_vendor_path="$rompath"
 # Use consistent umask for reproducible builds
 umask 022
 if [ "$1" = "x86_64" ];then
-	ASEMU_VERSION="x86_64"
-	ASEMU_SHA1SUM="ef4661e49abeb64c173636012526e41ff6f39dc1"
+	ASEMU_SHA1SUM="f5b2daa09b48de21a3acbbbe1c6b6c55c0cafe21"
+	ASEMU_FILE="x86_64-31_r08"
+	ASEMU_REPO="google_apis_playstore"
 
 elif [ "$1" = "x86" ];then
-	ASEMU_VERSION="x86"
-	ASEMU_SHA1SUM="13c100b62983d64db53cef3d70fea789d89f3232"
+	ASEMU_SHA1SUM="80f1f8f13e4c3503f4ffb19e2db6e724588f5871"
+	ASEMU_FILE="x86-31_r03"
+	ASEMU_REPO="google-tv"
 fi
 
 temp_dir="$dl_vendor_path"
 
-ASEMU_SDK="30"
-ASEMU_REVISION="09"
-ASEMU_FILE="${ASEMU_VERSION}-${ASEMU_SDK}_r${ASEMU_REVISION}-linux"
 echo $ASEMU_FILE
 ASEMU_FILENAME="$ASEMU_FILE.zip"
-ASEMU_URL="https://dl.google.com/android/repository/sys-img/google_apis_playstore/$ASEMU_FILENAME"
+ASEMU_URL="https://dl.google.com/android/repository/sys-img/${ASEMU_REPO}/$ASEMU_FILENAME"
 
 ASEMU_FILE_PATH="$temp_dir/$ASEMU_FILENAME"
 echo $ASEMU_FILE
