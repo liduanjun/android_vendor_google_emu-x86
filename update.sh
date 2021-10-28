@@ -154,7 +154,8 @@ mv system libndk_translation
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"making widevine folder"${reset}
 echo -e ${reset}""${reset}
-mv vendor widevine
+mkdir -p widevine
+mv vendor widevine/vendor
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"Creating Android.bp for widevine"${reset}
 echo -e ${reset}""${reset}
