@@ -1,0 +1,25 @@
+cc_prebuilt_library_shared {
+    name: "libwvdrmengine",
+    arch: {
+        x86: {
+            srcs: ["vendor/lib/mediadrm/libwvdrmengine.so"],
+        },
+    },
+    vendor: true,
+    relative_install_path: "mediadrm",
+    init_rc: ["libwvdrmengine.rc"],
+    required: [
+        "libprotobuf-cpp-lite-3.9.1",
+    ],
+    check_elf_files: false,
+}
+cc_prebuilt_library_shared {
+    name: "libprotobuf-cpp-lite-3.9.1",
+    arch: {
+        x86: {
+            srcs: ["vendor/lib/libprotobuf-cpp-lite-3.9.1.so"],
+        },
+    },
+    vendor: true,
+    check_elf_files: false,
+}

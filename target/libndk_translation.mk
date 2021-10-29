@@ -3,6 +3,7 @@ WITH_NATIVE_BRIDGE := true
 
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.dalvik.vm.isa.arm=x86 \
+    ro.dalvik.vm.isa.arm64=x86_64 \
     ro.enable.native.bridge.exec=1 \
     ro.dalvik.vm.native.bridge=libndk_translation.so
 

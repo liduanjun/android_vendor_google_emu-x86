@@ -7,19 +7,26 @@ cc_prebuilt_binary {
     init_rc: ["vendor/etc/init/android.hardware.drm@1.4-service.widevine.rc"],
     required: [
         "libwvhidl",
-        "libwvdrmengine",
     ],
     check_elf_files: false,
 }
 cc_prebuilt_library_shared {
     name: "libwvhidl",
-    srcs: ["vendor/lib/libwvhidl.so"],
+    arch: {
+        x86_64: {
+            srcs: ["vendor/lib64/libwvhidl.so"],
+        },
+    },
     vendor: true,
     check_elf_files: false,
 }
 cc_prebuilt_library_shared {
     name: "libwvdrmengine",
-    srcs: ["vendor/lib/mediadrm/libwvdrmengine.so"],
+    arch: {
+        x86_64: {
+            srcs: ["vendor/lib64/mediadrm/libwvdrmengine.so"],
+        },
+    },
     vendor: true,
     relative_install_path: "mediadrm",
     check_elf_files: false,

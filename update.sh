@@ -136,7 +136,7 @@ cd ..
 echo -e ${reset}""${reset}
 echo -e ${ltblue}"Finding needed files in vendor.img"${reset}
 echo -e ${reset}""${reset}
-find vendor \( -name 'android.hardware.drm@1.3-service.widevine*' -o -name '*libwvdrmengine*' -o -name 'libwvhidl*' -o -name '*libwv*' -o -name '*widevine*' \) | tar -cf widevine.tar -T -
+find vendor \( -name '*libwv*' -o -name '*widevine*' -o -name 'libprotobuf-cpp-lite*' \) | tar -cf widevine.tar -T -
 
 stat widevine.tar
 
@@ -170,17 +170,15 @@ echo -e ${ltyellow}"making widevine folder"${reset}
 echo -e ${reset}""${reset}
 mkdir -p widevine
 mv vendor widevine/vendor
-if [ "${ARCH}" = "x86_64" ]; then
-	mkdir widevine/vendor/lib
-	mkdir widevine/vendor/lib/mediadrm
-    cp widevine/vendor/lib64/libwvhidl.so widevine/vendor/lib/
-    cp widevine/vendor/lib64/mediadrm/libwvdrmengine.so widevine/vendor/lib/mediadrm/
-fi
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"Creating Android.bp for widevine"${reset}
 echo -e ${reset}""${reset}
 cp -r $vendor_path/templates/widevine/ ${TARGET_DIR}/
-mv ${TARGET_DIR}/widevine/Android.bp.$wv_api.template ${TARGET_DIR}/widevine/Android.bp
+if [ -f ${TARGET_DIR}/widevine/Android.bp.$wv_api.$ARCH.template ]; then
+    mv ${TARGET_DIR}/widevine/Android.bp.$wv_api.$ARCH.template ${TARGET_DIR}/widevine/Android.bp
+else
+    mv ${TARGET_DIR}/widevine/Android.bp.$wv_api.template ${TARGET_DIR}/widevine/Android.bp
+fi
 
 echo -e ${reset}""${reset}
 echo -e ${ltyellow}"Cleaning up a bit more"${reset}
