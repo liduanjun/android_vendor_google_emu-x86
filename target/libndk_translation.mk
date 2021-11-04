@@ -4,7 +4,9 @@ WITH_NATIVE_BRIDGE := true
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.dalvik.vm.isa.arm=x86 \
     ro.dalvik.vm.isa.arm64=x86_64 \
-    ro.enable.native.bridge.exec=1 \
+    ro.enable.native.bridge.exec=1
+
+PRODUCT_PROPERTY_DEFAULT_OVERRIDE  += \
     ro.dalvik.vm.native.bridge=libndk_translation.so
 
 LIBNDK_TRANSLATION_PATH := $(dir $(LOCAL_PATH))proprietary/libndk_translation
