@@ -12,7 +12,7 @@ and provide the following functionality:
  - **libndk_translation:** ARM on x86 native bridge by Google. Allows running apps built
    only for ARM platforms on x86-based devices.
 
-Currently, this project extracts files suitable for Android 11.0 (R).
+Currently, this project extracts files suitable for Android 10.0 (Q), 11.0 (R) & 12.0 (S).
 
 ## Usage
 
