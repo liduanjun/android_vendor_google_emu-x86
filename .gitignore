@@ -11,3 +11,4 @@ proprietary
 /g_system_ext/**/*.vdex
 /g_system_ext/**/*.odex
 /g_system_ext/**/*.mk
+/extracted/**
