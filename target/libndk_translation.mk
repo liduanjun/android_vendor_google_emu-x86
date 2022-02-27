@@ -6,7 +6,8 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.dalvik.vm.isa.arm64=x86_64 \
     ro.enable.native.bridge.exec=1
 
-PRODUCT_PROPERTY_DEFAULT_OVERRIDE  += \
+# Requires BoardConfig.mk to include PRODUCT_FULL_TREBLE := true
+PRODUCT_PRODUCT_PROPERTIES  += \
     ro.dalvik.vm.native.bridge=libndk_translation.so
 
 LIBNDK_TRANSLATION_PATH := $(dir $(LOCAL_PATH))proprietary/libndk_translation
