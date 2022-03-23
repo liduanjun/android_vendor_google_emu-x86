@@ -52,6 +52,9 @@ if [ -f $rompath/build/make/core/version_defaults.mk ]; then
     if grep -q "PLATFORM_SDK_VERSION := 31" $rompath/build/make/core/version_defaults.mk; then
         wv_api="31"
     fi
+    if grep -q "PLATFORM_SDK_VERSION := 32" $rompath/build/make/core/version_defaults.mk; then
+        wv_api="31"
+    fi
 fi
 
 #~ temp_dir=$(mktemp -d)
