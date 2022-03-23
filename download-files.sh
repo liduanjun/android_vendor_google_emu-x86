@@ -30,7 +30,7 @@ if [ -f ../../../../build/make/core/version_defaults.mk ]; then
 			ASEMU_REPO="google_apis_playstore"
 		fi
     fi
-    if grep -q "PLATFORM_SDK_VERSION := 31" ../../../../build/make/core/version_defaults.mk; then
+    if grep -q "PLATFORM_SDK_VERSION := 31\|PLATFORM_SDK_VERSION := 32" ../../../../build/make/core/version_defaults.mk; then
         if [ "$1" = "x86_64" ];then
 			ASEMU_SHA1SUM="f5b2daa09b48de21a3acbbbe1c6b6c55c0cafe21"
 			ASEMU_FILE="x86_64-31_r08-linux"
